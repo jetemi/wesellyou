@@ -1,0 +1,4 @@
+.env
+steps.md
+db.sqlite3
+__pycache__/

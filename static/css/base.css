@@ -1,0 +1,715 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Overpass', sans-serif;
+    color: #1c1c1c;
+    font-weight: 300;
+}
+
+/* ---------------------------------------- Headings - general */
+h1, h2 {
+    font-weight: 700;
+} 
+
+h2 {
+    font-size: 100%;
+    margin-bottom: 1rem;
+}
+
+/* style for main headings throughout, including allauth pages */
+.allauth-form-inner-content h1,
+.page-title {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-bottom: 0.01rem solid rgba(28, 28, 28, 0.8);
+}
+
+/* ---------------------------------------- Links and Buttons - general */
+/* remove default colour + text decoration from links */
+a,
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* hover etc. for general links */
+main a:hover,
+main a:active,
+main a:focus {
+    font-weight: 600;
+}
+
+/* class for links that appear in body text - for allauth pages also */
+.allauth-form-inner-content a,
+.text-link {
+    border-bottom: 0.1rem solid #90ee90;
+}
+
+/* adjust Bootstrap general btn styles */
+.btn {
+    border-radius: 0;
+    color: #1c1c1c;
+}
+
+/* set font styles for btn, exlude search btn and filter by county */
+:not(.input-group-append):not(.dropdown) > .btn {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* brand colours on buttons - border added so same size as outlined btn */
+.btn-brand {
+    background-color: #90ee90;
+    border: 0.1rem solid #90ee90;
+}
+
+/* button outlined */
+.btn-brand-outline {
+    background-color: #fdfdfd;
+    border: 0.1rem solid #90ee90;
+}
+
+/* dark button - border added so same size as outlined btn */
+.btn-brand-dark {
+    color: #fdfdfd;
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
+.btn-brand:hover,
+.btn-brand:active,
+.btn-brand:focus,
+.btn-brand-outline:hover,
+.btn-brand-outline:active,
+.btn-brand-outline:focus {
+    color: #fdfdfd;
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
+.btn-brand-dark:hover,
+.btn-brand-dark:active,
+.btn-brand-dark:focus { 
+    background-color: #fdfdfd;
+    border: 0.1rem solid #90ee90;
+}
+
+/* div holding back to top link - bottom right, position sticky so stays above footer */
+.btt-button {
+    height: 3rem;
+    width: 3rem;
+    position: sticky;
+    bottom: 2vh;
+    left: 100%;
+}
+
+/* back to top link, no href as works with javascript, over-ride bootstrap inherit color for no href */
+a:not([href]).btt-link {
+    cursor: pointer;
+    background-color: #fdfdfd;
+    border: 0.1rem solid #1c1c1c;
+}
+
+a:not([href]).btt-link:hover,
+a:not([href]).btt-link:active,
+a:not([href]).btt-link:focus {
+    background-color: #90ee90;
+    border-color: #90ee90;
+    font-size: 130%;
+}
+
+/* links on shop/market page for admin actions */
+.admin-link {
+    color: #1c1c1c;
+    border-bottom: .3rem solid #1c1c1c;
+}
+
+.admin-link:hover,
+.admin-link:active,
+.admin-link:focus {
+    border-color: #90ee90;
+}
+
+/* box with edit and delete links for admin, and active/not active button */
+.admin-link-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.5rem 0.8rem;
+    border: 0.1rem solid #90ee90;
+}
+
+/* ---------------------------------------- Font styles - general */
+.font-90 {
+    font-size: 90%;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+/* ---------------------------------------- Other - general  */
+/* change default Bootstrap border on select box */
+.custom-select {
+    border: 0.1rem solid #1c1c1c;
+}
+
+/* hr dividing rows of products, markets on shop, markets, my markets pages */
+.row-divider {
+    border-top: 0.1rem solid #90ee90;
+    width: 80%;
+}
+
+/* for icons used throughout */
+.icon {
+    color: #90ee90;
+    padding-right: 0.3rem;
+}
+
+/* ---------------------------------------- Header */
+.username {
+    color: #FDFDFD;
+    font-size: 80%;
+    font-weight: 300;
+    margin-right: 1rem;
+}
+
+.nav-main, .dropdown-menu {
+    background-color: #1c1c1c;
+}
+
+.logo {
+    font-family: 'Lobster Two';
+    font-size: 1.6rem;
+    color: #90ee90;
+}
+
+/* reduce padding inside the navbar, added back at larger size in media query */
+.navbar .container-fluid {
+    padding: 0;
+}
+
+/* remove default Bootstrap margin, added back at larger size in media query */
+.navbar-brand {
+    margin-right: 0;
+}
+
+/* Logo 'K' - reduce Bootstrap font-size, added back at larger size in media query */
+.display-4 {
+    font-size: 2rem;
+}
+
+/* remove Bootstrap padding + border radius on dropdown */
+.dropdown-menu {
+    padding: 0;
+    border-radius: 0;
+}
+
+/* main header links - colour + adjust automatic Bootstrap padding */
+.nav-link-main {
+    color: #90ee90;
+    padding-left: 0.9rem;
+    padding-right: 0.5rem;
+}
+
+/* size for the icons in main header links */
+.nav-icon {
+    font-size: 1.3rem;
+}
+
+/* don't show the nav-text under the icons at small mobile size */
+.nav-link .nav-text {
+    display: none;
+}
+
+/* main header links, dropdown items text - font styles */
+.nav-text {
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+/* reduce Bootstrap padding on dropdown menu for smaller mobile, inceased in media query */
+.dropdown-item {
+    color: #90ee90;
+    padding-left: 0.5rem;
+}
+
+/* hover, focus etc. for links in header */
+.nav-link-main:hover,
+.nav-link-main:active,
+.nav-link-main:focus,
+.logo:hover,
+.logo:active,
+.logo:focus {
+    color: #fdfdfd;
+}
+
+/* to highlight the active website section in main header */
+.nav-item-active .nav-link-main {
+    color: #fdfdfd;
+}
+
+/* links in dropdown menu - hover */
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item:focus {
+    background-color: #90ee90;
+    color: #1c1c1c;
+}
+
+/* ---------------------------------------- Bootstrap toasts (messages) */
+/* message container positioned to show near header in top right */
+.message-container {
+    position: fixed;
+    top: 12vh;
+    right: 2vw;
+    z-index: 99999999999;
+}
+
+/* border along top of toast box */
+.toast-capper {
+    height: 0.3rem;
+}
+
+/* set text colour for header and close button */
+.toast-header, .close {
+    color: #1c1c1c;
+}
+
+/* add brand colour for success msg instead of bootstrap colour */
+.bg-success {
+    background-color: #90ee90 !important;
+}
+
+/* stop the bag summary in toast msg getting too big */
+.bag-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* ---------------------------------------- Home page */
+.hero-image {
+	background-image: url(../../media/main_image.jpg);
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+    transition: all .5s ease-in-out;
+    margin: 0;
+    padding: 0;
+}
+
+/* overlay on hero-image behind the callout text, flex container for text */
+.overlay {
+    background-color: rgba(44, 43, 43, 0.6);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* subheading text */
+.callout {
+    font-weight: 500;
+    font-size: 120%;
+    color: #fdfdfd;
+}
+
+/* headline text */
+.callout h1 {
+    font-size: 2rem;
+}
+
+/* buttons on top of hero image */
+.btn-callout {
+    padding: 0.5rem 0.8rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
+.btn-callout:hover, 
+.btn-callout:active, 
+.btn-callout:focus {
+    color: #fdfdfd;
+}
+
+/* ---------------------------------------- Shop/Product details page */
+/* ---------- sub navigation on shop pages */
+.nav-link-sub {
+    color: #1c1c1c;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* hover etc. for sub navigation */
+.nav-link-sub:hover,
+.nav-link-sub:active,
+.nav-link-sub:focus {
+    background-color: #1c1c1c;
+    color: #fdfdfd;
+    border-bottom: 0.4rem solid #1c1c1c;
+}
+
+/* to highlight the currently selected category */
+.nav-link-sub.current {
+    border-bottom: 0.4rem solid #1c1c1c;
+}
+
+/* mobile menu icon for category menu */
+.menu-icon {
+    font-size: 2.5rem;
+}
+
+/* button containing mobile menu icon - negative margin to align */
+.navbar-toggler {
+    margin-bottom: -0.5rem;
+}
+
+/* 'new' badge for items in shop */
+.badge-brand {
+    border-radius: 0;
+    background-color: #90ee90;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06rem;
+    position: absolute;
+    padding: 0.4rem;
+    top: 0.5rem;
+}
+
+/* quantity buttons for adding to cart/adjusting quantity */
+.btn-qty {
+    background-color: #1c1c1c;
+    border: 0.01rem solid #1c1c1c;
+    color: #fdfdfd;
+}
+
+.btn-qty:hover,
+.btn-qty:active,
+.btn-qty:focus {
+    background-color: #fdfdfd;
+    color: #1c1c1c;
+}
+
+/* input between quantity buttons - and search box */
+.form-control {
+    color: #1c1c1c;
+    border: 0.01rem solid #1c1c1c;
+}
+
+/* link on cart page to update quantity/remove items */
+.update-link, .remove-item {
+    cursor: pointer;
+    border-bottom: 0.1rem solid #90ee90;
+}
+
+.update-link:hover,
+.update-link:active,
+.update-link:focus,
+.remove-item:hover,
+.remove-item:active,
+.remove-item:focus {
+    border: 0.1rem solid #90ee90;
+    font-size: 110%;
+}
+
+/* ---------------------------------------- Modals to Delete Product/Market/Comment */
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-header {
+    border-bottom: 1px solid #90ee90;
+}
+
+.modal-footer {
+    border-top: 1px solid #90ee90;
+}
+
+.modal-body .col-10 {
+    border: 0.1px solid rgba(28, 28, 28, 0.3);
+}
+
+/* ---------------------------------------- Checkout, Profile, Product mgmt, Market mgmt forms */
+.brand-form-input {
+    border-radius: 0;
+    background-color: white;
+}
+
+.brand-form label {
+    margin-bottom: 0;
+    font-size: 80%;
+    font-weight: 500;
+}
+
+.brand-form ::placeholder {
+    font-weight: 100;
+    font-size: 90%;
+}
+
+/* set colour for select box and select option children */
+select,
+select option {
+    color: #1c1c1c;
+}
+
+/* set blank label, invalid selection and date/time input placeholder to same font style as placeholder */
+select:invalid,
+select option[value=""],
+.brand-form input:not(:valid)::-webkit-datetime-edit {
+    color: #6c757d;
+    font-weight: 100;
+    font-size: 90%;
+}
+
+.fieldset-label {
+    font-size: 90%;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+/* wrapper around fieldsets */
+fieldset {
+    padding: 0.5rem 1rem;
+    border: 0.1rem solid #90ee90;
+    margin-bottom: 3rem;
+}
+
+/* wrapper around product form to add/edit product */
+.form-wrapper {
+    border: 0.1rem solid #90ee90;
+    padding: 1rem;
+}
+
+/* change helptext when associated market form input is invalid, added by JS */
+.invalid-text {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* ------- custom clearable file input (image field on product form + market form) Credit: Code Institute */
+/* span wrapped around file input */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+/* input itself - position against above span - take up entire span */
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* remove border radius and add BS danger color for checkbox */
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0;
+    border-color: #dc3545;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 0;
+}
+
+/* so that the label is in line with the checkbox */
+label[for="image-clear_id"]{
+    line-height: 1.5rem;
+}
+
+.current-image-label {
+    font-size: 80%;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* ---------------------------------------- Allauth form formatting */
+.allauth-form-inner-content input {
+    border-color: #1c1c1c;
+    border-radius: 0;
+}
+
+/* labels heavier weight */
+.allauth-form-inner-content label {
+    font-size: 90%;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+/* give placeholders same color as text */
+.allauth-form-inner-content input::placeholder {
+    color: #1c1c1c;
+    font-weight: 100;
+}
+
+.allauth-form-inner-content p {
+    margin-top: 1.8rem;
+}
+
+/* ---------------------------------------- Footer */
+/* embedded mailchimp form - custom CSS */
+.newsletter-form-input {
+    border-radius: 0;
+    background-color: #FDFDFD;
+    padding: 0.5rem;
+}
+
+/* newsletter sign up button */
+.btn-newsletter {
+    background-color: #010101;
+    border: 0.1rem solid #90ee90;
+    color: #90ee90;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.btn-newsletter:hover,
+.btn-newsletter:focus,
+.btn-newsletter:active {
+    background-color: #90ee90;
+    color: #010101;
+}
+
+/* 
+position sticky + 100vh, combined with 100% on body and html for sticky footer 
+from: https://css-tricks.com/a-clever-sticky-footer-technique/
+*/
+footer {
+    position: sticky;
+    top: 100vh;
+    background-color: #010101;
+    color: #fdfdfd;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+/* heading in footer for social links */
+.sm-heading {
+    color: #90ee90;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.footer-link {
+    color:#FDFDFD;
+}
+
+.footer-link:hover, 
+.footer-link:active,
+.footer-link:focus {
+    color: #90ee90;
+    text-decoration: underline;
+}
+
+/* icon in footer for social links */
+footer i {
+    font-size: 1.2rem;
+}
+
+/* copyright footnote */
+.footnote {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+/* styles for the modals from footer useful links section */
+.useful-links-modal .modal-content {
+    padding: 1rem 0.5rem;
+}
+
+.useful-links-modal .modal-header,
+.useful-links-modal .modal-footer {
+    border: 0;
+}
+
+.useful-links-modal h2 {
+    margin-top: 1.5rem;
+}
+
+.icon-img {
+    max-width: 25%;
+}
+/*================================== MEDIA QUERIES ===========================================*/
+
+/* larger than 375 px mobiles, increase nav padding + font-sizes, show nav text */
+@media screen and (min-width: 375px) {
+    /* ---------------------------------------- Header */
+    /* Logo 'K' increase font-size back to Bootstrap default (reduced at smaller size) */
+    .display-4 {
+        font-size: 3.5rem;
+    }
+
+    /* add back margin that was removed at smaller size */
+    .navbar-brand {
+        margin-right: 1rem;
+    }
+
+    /* nav-text underneath the icons - hidden at smaller size */
+    .nav-link .nav-text {
+        display: inline;
+    }
+
+    /* arrow down icon beside icon when no nav-text, hide at this size */
+    .nav-icon + .bi-chevron-down {
+        display: none;
+    }
+
+    /* increase font size for main nav links, dropdown items text */
+    .nav-text {
+        font-size: 0.8rem;
+    }
+
+    /* increase padding on dropdown menu that was reduced at smaller size */
+    .dropdown-item {
+        padding-left: 1rem;
+    }
+    
+    /* ---------------------------------------- Home page */
+    /* headline text */
+    .callout h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/*================================ bigger than mobile ====================================*/
+@media screen and (min-width: 500px) {
+    /* ---------------------------------------- Header */
+    /* adjust sizes of logo and main header links */
+    .logo {
+        font-size: 3rem;
+    }
+
+    /* re-set back to Bootstrap default padding */
+    .nav-link-main {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-icon {
+        font-size: 1.5rem;
+    }
+    
+    .nav-text {
+        font-size: 1rem;
+    }
+
+    /* add back padding that was reduced in default view */
+    .navbar .container-fluid {
+        padding: 0 1rem;
+    }
+}

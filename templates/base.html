@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+    
+    {% block extra_meta %}
+    <!-- Meta keywords and descriptions - default, amended in other templates where needed -->
+    <meta name="description"
+        content="Wesellforyou: an independent retail shop, that lead you to great products on the web.">
+    <meta name="keywords" 
+        content="retail, sales, buy, sell, wesellforyou, wesellyou">
+    {% endblock %}
+
+    {% block corecss %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Google Fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;1,400&family=Overpass:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- main custom CSS file -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- favicon, generated at https://formito.com/tools/favicon -->
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    {% endblock %}
+
+    {% block extra_css %}
+    <!-- Any specific CSS files for other templates -->
+    {% endblock %}
+
+    {% block corejs %}
+    <!-- Bootstrap JavaScript: jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <!-- Stripe -->
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
+    {% endblock %}
+
+    {% block extra_js %}
+    <!-- Any specific JavaScript for other templates -->
+    {% endblock %}
+
+    <!-- extra_title block so other pages can have additional wording added to the main title -->
+    <title>wesellyou{% block extra_title %}{% endblock %}</title>
+</head>
+<body>
+    <!-- main header for all pages -->
+    <header>
+        <!-- main nav bar for all pages: name if logged in, Logo + list of links: shop, market, account, bag -->
+        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-md-5" aria-label="Primary"> 
+            <!-- Top row showing name if logged in -->
+            <div class="container-fluid justify-content-end">
+                <div class="row mb-2 mx-sm-0">
+                    <p class="my-0 username">
+                        {% if request.user.is_authenticated %}
+                        Signed in as: <span class="font-italic">{{ user.username }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="container-fluid mb-2 mb-md-0">
+                <!-- logo -->
+                <a class="navbar-brand logo" href="{% url 'home' %}">
+                    <!-- <span class="display-4 d-md-none">S</span> -->
+                    <img src="../static/favicon.png" class="display-4 icon-img d-md-none">
+                    <span class="d-none d-md-inline">WeSellYou</span>
+                </a>
+                <!-- List of links - each with icon and text below it -->
+                <ul class="nav">
+                    <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
+                        <a class="nav-link nav-link-main" href="{% url 'about_us' %}">
+                            <div class="text-center">
+                                <div><i class="bi bi-bank nav-icon" aria-hidden="true"></i></div>
+                                <p class="my-0 nav-text">What we do</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
+                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
+                            <div class="text-center">
+                                <div><i class="bi bi-person-workspace nav-icon" aria-hidden="true"></i></div>
+                                <p class="my-0 nav-text">Who We are</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item {% if not 'profile' in request.path and 'markets' in request.path %}nav-item-active{% endif %}">
+                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
+                            <div class="text-center">
+                                <div><i class="bi bi-people-fill nav-icon" aria-hidden="true"></i></div>
+                                <p class="my-0 nav-text">Who</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- This link is a dropdown menu for Account options. Link name changes depending on signed in status of user -->
+                    <li
+                        class="nav-item dropdown {% if 'profile' in request.path or 'account' in request.path %}nav-item-active{% endif %}">
+                        <a class="nav-link nav-link-main" href="" id="account-options" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div>
+                                    <!-- the down arrow is shown with the person icon at small mobile sizes when nav text is hidden -->
+                                    <i class="bi bi-person{% if request.user.is_authenticated %}-fill{% endif %} nav-icon"
+                                        aria-hidden="true"></i><i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
+                                </div>
+                                <p class="my-0 nav-text">
+                                    {% if request.user.is_authenticated %}Account{% else %}About{% endif %}
+                                    <i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                        </a>
+                        <!-- dropdown menu items options depend on signed in status -->
+                        <div class="dropdown-menu border-0" aria-labelledby="account-options">
+                            {% if request.user.is_authenticated %}
+                            {% if request.user.is_superuser %}
+                            <!-- admin user extra option for product + markets management -->
+                            <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">Product Management</a>
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Markets Management</a>
+                            {% endif %} -->
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">My Profile</a>
+                            <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">My Markets</a> -->
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign Out</a>
+                            {% else %}
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Investment</a>
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Portfolio</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <!-- links to cart.html page, and displays total amount in cart -->
+                    <!-- <li
+                        class="nav-item {% if 'cart' in request.path or 'checkout' in request.path %}nav-item-active{% endif %}">
+                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
+                            <div class="text-center"> -->
+                                <!-- show filled icon if there are items in the cart, otherwise outlined icon -->
+                                <!-- <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"
+                                        aria-hidden="true"></i></div> -->
+                                <!-- grand total currently in cart, otherwise 0.00 -->
+                                <!-- <p class="my-0 nav-text">
+                                    €{% if grand_total %}{{ grand_total|floatformat:2 }}{% else %}0.00{% endif %}</p>
+                            </div>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% if messages %}
+    <!-- to display error/info/warning/success messages for user actions -->
+    <div aria-live="polite" aria-atomic="true" class="message-container">
+        {% for message in messages %}
+            <!-- using Django message levels -->
+            {% with message.level as level %}
+                {% if level == 40 %}
+                    <!-- error -->
+                    {% include 'includes/toasts/toast_error.html' %}
+                {% elif level == 30 %}
+                    <!-- warning -->
+                    {% include 'includes/toasts/toast_warning.html' %}
+                {% elif level == 25 %}
+                    <!-- success -->
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% else %}
+                    <!-- info for everything else -->
+                    {% include 'includes/toasts/toast_info.html' %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <main class="pt-5">
+    {% block page_header %}
+    <!-- specific page header under main header -->
+    {% endblock %}
+    {% block content %}
+    <!-- specific page content -->
+    {% endblock %}
+    </main>
+    <!-- page footer for all pages -->
+    <footer>
+        <!-- container for footer grid - two rows -->
+        <div class="pt-5 pb-2 container-xl">
+            <!-- row to hold social links, useful links + newsletter sign up -->
+            <div class="row pb-4 justify-content-md-center">
+                <!-- social media links section-->
+                <div class="col-12 col-md-6 col-lg-3 text-center">
+                    <h5 class="sm-heading">Connect with us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/" target="_blank" rel="noopener"
+                                aria-label="Visit our Facebook page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-facebook" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.instagram.com/" target="_blank" rel="noopener"
+                                aria-label="Visit our Instagram page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-instagram" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com" target="_blank" rel="noopener"
+                                aria-label="Visit our Twitter page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-twitter" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://linkedin.com/" target="_blank" rel="noopener"
+                                aria-label="Visit our LinkedIn page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-linkedin" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end of social links column -->
+                <!-- Useful links column: terms of use + privacy policy links -->
+                <div class="col-12 col-md-6 col-lg-3 text-center mt-3 mt-md-0">
+                    <h5 class="sm-heading">Useful links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#termsOfUseModal" data-toggle="modal" class="footer-link">Terms of use</a>
+                        </li>
+                        <li>
+                            <a href="#privacyPolicyModal" data-toggle="modal" class="footer-link">Privacy policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end of useful links column -->
+                <!-- newsletter sign up column - Mailchimp embedded form -->
+                <div id="mc_embed_signup" class="col-12 col-md-10 col-lg-6 mt-4 mt-lg-0 px-4">
+                    <h5 class="sm-heading text-center">Holla</h5>
+                    <p class="font-90 m-0 text-center">This is just a sample!</p>
+                    <!-- <form
+                        action="https://herokuapp.us14.list-manage.com/subscribe/post?u=1beeb9fe77b2622a8021637d3&amp;id=afabe6fb17"
+                        method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                        class="validate brand-form" target="_blank" novalidate>
+                        <div id="mc_embed_signup_scroll">
+                            <div class="form-row">
+                                <div class="col-12 col-sm-8">
+                                    <div class="mc-field-group">
+                                        <label for="mce-EMAIL" class="sr-only">Email Address</label>
+                                        <input type="email" value="" name="EMAIL"
+                                            class="required email newsletter-form-input w-100" id="mce-EMAIL"
+                                            placeholder="Email address">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-4 mt-2 mt-sm-0">
+                                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                        class="button btn btn-newsletter w-100">
+                                </div>
+                            </div> -->
+                            <!-- mailchimp containers for error or success msgs -->
+                            <!-- <div id="mce-responses" class="clear foot">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                            </div> -->
+                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                                    name="b_1beeb9fe77b2622a8021637d3_afabe6fb17" tabindex="-1" value="">
+                            </div> -->
+                            <!-- mailchimp credit for form -->
+                            <!-- <div class="form-row flex-row-reverse mx-0">
+                                <div class="clear foot col-4 mt-2 pr-0 pl-1">
+                                    <p class="brandingLogo mb-0"><a href="http://eepurl.com/hZys35" target="_blank"
+                                            rel="nofollow" title="Mailchimp - email marketing made easy and fun"><img
+                                                src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"
+                                                alt="bage stating made with mailchimp, and mailchimp logo"
+                                                class="img-fluid"></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </form> -->
+                </div>
+                <!-- end of newsletter sign up column -->
+            </div>
+            <!-- end of row with social links, useful links + newsletter sign up -->
+            <!-- row for copyright info -->
+            <div class="row footnote text-center mt-4">
+                <div class="col">
+                    <p>
+                        <span>&copy; <a href="https://github.com/jetemi" target="_blank" rel="noopener"
+                                class="footer-link">Jetemi</a> 2022. Site template.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- end of footer container -->
+    </footer>
+    <!-- privacy policy modal + terms of use modal -->
+    {% include 'includes/privacy_policy.html' %}
+    {% include 'includes/terms_of_use.html' %}
+    {% block postloadjs %}
+    <!-- specific page scripts that need to load at end of body -->
+    <script>
+        // call Bootstrap toast method with show option on all elements with class toast
+        $(".toast").toast("show");
+    </script>
+    <!-- Mailchimp embedded form script -->
+    <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <!-- Mailchimp embedded form script -->
+    <script>
+        (function ($) {
+            window.fnames = new Array();
+            window.ftypes = new Array();
+            fnames[0] = 'EMAIL';
+            ftypes[0] = 'email';
+            fnames[1] = 'FNAME';
+            ftypes[1] = 'text';
+            fnames[2] = 'LNAME';
+            ftypes[2] = 'text';
+            fnames[3] = 'ADDRESS';
+            ftypes[3] = 'address';
+            fnames[4] = 'PHONE';
+            ftypes[4] = 'phone';
+            fnames[5] = 'BIRTHDAY';
+            ftypes[5] = 'birthday';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+    </script>
+    {% endblock %}
+</body>
+</html>
