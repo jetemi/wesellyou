@@ -46,7 +46,7 @@ main a:focus {
 /* class for links that appear in body text - for allauth pages also */
 .allauth-form-inner-content a,
 .text-link {
-    border-bottom: 0.1rem solid #90ee90;
+    border-bottom: 0.1rem solid #5dc0bb;
 }
 
 /* adjust Bootstrap general btn styles */
@@ -63,14 +63,14 @@ main a:focus {
 
 /* brand colours on buttons - border added so same size as outlined btn */
 .btn-brand {
-    background-color: #90ee90;
-    border: 0.1rem solid #90ee90;
+    background-color: #5dc0bb;
+    border: 0.1rem solid #5dc0bb;
 }
 
 /* button outlined */
 .btn-brand-outline {
     background-color: #fdfdfd;
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
 }
 
 /* dark button - border added so same size as outlined btn */
@@ -95,7 +95,7 @@ main a:focus {
 .btn-brand-dark:active,
 .btn-brand-dark:focus { 
     background-color: #fdfdfd;
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
 }
 
 /* div holding back to top link - bottom right, position sticky so stays above footer */
@@ -117,8 +117,8 @@ a:not([href]).btt-link {
 a:not([href]).btt-link:hover,
 a:not([href]).btt-link:active,
 a:not([href]).btt-link:focus {
-    background-color: #90ee90;
-    border-color: #90ee90;
+    background-color: #5dc0bb;
+    border-color: #5dc0bb;
     font-size: 130%;
 }
 
@@ -131,7 +131,7 @@ a:not([href]).btt-link:focus {
 .admin-link:hover,
 .admin-link:active,
 .admin-link:focus {
-    border-color: #90ee90;
+    border-color: #5dc0bb;
 }
 
 /* box with edit and delete links for admin, and active/not active button */
@@ -139,7 +139,7 @@ a:not([href]).btt-link:focus {
     display: flex;
     flex-direction: column;
     padding: 0.5rem 0.5rem 0.8rem;
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
 }
 
 /* ---------------------------------------- Font styles - general */
@@ -163,13 +163,13 @@ a:not([href]).btt-link:focus {
 
 /* hr dividing rows of products, markets on shop, markets, my markets pages */
 .row-divider {
-    border-top: 0.1rem solid #90ee90;
+    border-top: 0.1rem solid #5dc0bb;
     width: 80%;
 }
 
 /* for icons used throughout */
 .icon {
-    color: #90ee90;
+    color: #5dc0bb;
     padding-right: 0.3rem;
 }
 
@@ -188,7 +188,7 @@ a:not([href]).btt-link:focus {
 .logo {
     font-family: 'Lobster Two';
     font-size: 1.6rem;
-    color: #90ee90;
+    color: #5dc0bb;
 }
 
 /* reduce padding inside the navbar, added back at larger size in media query */
@@ -214,7 +214,7 @@ a:not([href]).btt-link:focus {
 
 /* main header links - colour + adjust automatic Bootstrap padding */
 .nav-link-main {
-    color: #90ee90;
+    color: #5dc0bb;
     padding-left: 0.9rem;
     padding-right: 0.5rem;
 }
@@ -237,7 +237,7 @@ a:not([href]).btt-link:focus {
 
 /* reduce Bootstrap padding on dropdown menu for smaller mobile, inceased in media query */
 .dropdown-item {
-    color: #90ee90;
+    color: #5dc0bb;
     padding-left: 0.5rem;
 }
 
@@ -260,7 +260,7 @@ a:not([href]).btt-link:focus {
 .dropdown-item:hover,
 .dropdown-item:active,
 .dropdown-item:focus {
-    background-color: #90ee90;
+    background-color: #5dc0bb;
     color: #1c1c1c;
 }
 
@@ -285,7 +285,7 @@ a:not([href]).btt-link:focus {
 
 /* add brand colour for success msg instead of bootstrap colour */
 .bg-success {
-    background-color: #90ee90 !important;
+    background-color: #5dc0bb !important;
 }
 
 /* stop the bag summary in toast msg getting too big */
@@ -378,7 +378,7 @@ a:not([href]).btt-link:focus {
 /* 'new' badge for items in shop */
 .badge-brand {
     border-radius: 0;
-    background-color: #90ee90;
+    background-color: #5dc0bb;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.06rem;
@@ -410,7 +410,7 @@ a:not([href]).btt-link:focus {
 /* link on cart page to update quantity/remove items */
 .update-link, .remove-item {
     cursor: pointer;
-    border-bottom: 0.1rem solid #90ee90;
+    border-bottom: 0.1rem solid #5dc0bb;
 }
 
 .update-link:hover,
@@ -419,7 +419,7 @@ a:not([href]).btt-link:focus {
 .remove-item:hover,
 .remove-item:active,
 .remove-item:focus {
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
     font-size: 110%;
 }
 
@@ -429,11 +429,11 @@ a:not([href]).btt-link:focus {
 }
 
 .modal-header {
-    border-bottom: 1px solid #90ee90;
+    border-bottom: 1px solid #5dc0bb;
 }
 
 .modal-footer {
-    border-top: 1px solid #90ee90;
+    border-top: 1px solid #5dc0bb;
 }
 
 .modal-body .col-10 {
@@ -481,13 +481,13 @@ select option[value=""],
 /* wrapper around fieldsets */
 fieldset {
     padding: 0.5rem 1rem;
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
     margin-bottom: 3rem;
 }
 
 /* wrapper around product form to add/edit product */
 .form-wrapper {
-    border: 0.1rem solid #90ee90;
+    border: 0.1rem solid #5dc0bb;
     padding: 1rem;
 }
 
@@ -572,8 +572,8 @@ label[for="image-clear_id"]{
 /* newsletter sign up button */
 .btn-newsletter {
     background-color: #010101;
-    border: 0.1rem solid #90ee90;
-    color: #90ee90;
+    border: 0.1rem solid #5dc0bb;
+    color: #5dc0bb;
     padding: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
@@ -582,7 +582,7 @@ label[for="image-clear_id"]{
 .btn-newsletter:hover,
 .btn-newsletter:focus,
 .btn-newsletter:active {
-    background-color: #90ee90;
+    background-color: #5dc0bb;
     color: #010101;
 }
 
@@ -601,7 +601,7 @@ footer {
 
 /* heading in footer for social links */
 .sm-heading {
-    color: #90ee90;
+    color: #5dc0bb;
     font-weight: 500;
     font-size: 1.2rem;
 }
@@ -613,7 +613,7 @@ footer {
 .footer-link:hover, 
 .footer-link:active,
 .footer-link:focus {
-    color: #90ee90;
+    color: #5dc0bb;
     text-decoration: underline;
 }
 

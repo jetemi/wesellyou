@@ -85,7 +85,7 @@
                 <!-- List of links - each with icon and text below it -->
                 <ul class="nav">
                     <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
-                        <a class="nav-link nav-link-main" href="{% url 'about_us' %}">
+                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
                             <div class="text-center">
                                 <div><i class="bi bi-bank nav-icon" aria-hidden="true"></i></div>
                                 <p class="my-0 nav-text">What we do</p>
@@ -121,7 +121,7 @@
                                         aria-hidden="true"></i><i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
                                 </div>
                                 <p class="my-0 nav-text">
-                                    {% if request.user.is_authenticated %}Account{% else %}About{% endif %}
+                                    {% if request.user.is_authenticated %}Account{% else %}Log in{% endif %}
                                     <i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
                                 </p>
                             </div>
@@ -138,8 +138,8 @@
                             <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">My Markets</a> -->
                             <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign Out</a>
                             {% else %}
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Investment</a>
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Portfolio</a>
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign in</a>
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign up</a>
                             {% endif %}
                         </div>
                     </li>
