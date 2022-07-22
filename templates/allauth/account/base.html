@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="'container py-5">
+    <div class="row pt-3 pt-md-5">
+        <div class="col-12 col-md-6 offset-md-2 pt-5">
+            <div class="allauth-form-inner-content">
+                {% block inner_content %}
+                <!-- block content for the allauth forms which sits inside the column -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

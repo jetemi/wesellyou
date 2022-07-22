@@ -131,15 +131,15 @@
                             {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
                             <!-- admin user extra option for product + markets management -->
-                            <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">Product Management</a>
+                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Product Management</a>
                             <a href="{% url 'home' %}" class="dropdown-item nav-text">Markets Management</a>
-                            {% endif %} -->
+                            {% endif %}
                             <a href="{% url 'home' %}" class="dropdown-item nav-text">My Profile</a>
                             <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">My Markets</a> -->
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign Out</a>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item nav-text">Sign Out</a>
                             {% else %}
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign in</a>
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Sign up</a>
+                            <a href="{% url 'account_login' %}" class="dropdown-item nav-text">Sign in</a>
+                            <a href="{% url 'account_signup' %}" class="dropdown-item nav-text">Sign up</a>
                             {% endif %}
                         </div>
                     </li>
