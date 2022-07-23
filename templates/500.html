@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Server Error{% endblock %}
+{% block content %}
+
+<!-- page contents container -->
+<section class="container-fluid py-5">
+    <!-- row with heading + contents-->
+    <div class="row py-5 justify-content-center">
+        <div class="col-12 col-md-6 pt-5">
+            <h1 class="mb-4 page-title">500 Server Error!</h1>
+            <p>We're sorry, something has gone wrong! We're working on it but in the meantime please make your way back
+                using our links below.</p>
+            <p>You can <a href="{% url 'home' %}" class="text-link">go back to our home page</a>, or <a
+                    href="{% url 'products' %}" class="text-link">browse the wall hangings in our Shop</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

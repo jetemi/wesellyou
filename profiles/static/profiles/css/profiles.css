@@ -1,0 +1,54 @@
+/* ---------------------------------------- Breadcrumb navigation */
+.breadcrumb {
+    background-color: #fdfdfd;
+    color: #1c1c1c;
+    font-weight: 500;
+}
+
+/* current page bolder + underlined */
+.breadcrumb-item .current {
+    font-weight: 600;
+    border-bottom: 0.35rem solid #1c1c1c;
+}
+
+/* change Bootstrap breadcrumb divider from / to > */
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+}
+
+/* ---------------------------------------- UserProfile form */
+/* select options except first one black by default */
+.country-input,
+.country-input option:not(:first-child) {
+    color: #1c1c1c;
+}
+
+/* first option same color as placeholder */
+.country-input option:first-child {
+    color: #6c757d;
+}
+
+/* ---------------------------------------- Order History section on profile page */
+/* max height - have a scroll bar if height greater than form on other side of page */
+.order-history {
+    max-height: 416px;
+    overflow-y: auto;
+}
+
+.table {
+    border: 0.01rem solid #ff8881;
+    border-collapse: unset;
+    padding-bottom: 1rem;
+}
+
+thead {
+    background-color: #1c1c1c;
+    color: #fdfdfd;
+}
+
+/* ---------------------------------------- Account details section */
+/* border around username/email details */
+.wrapper {
+    padding: 0.5rem;
+    border: 0.1rem solid #ff8881;
+}

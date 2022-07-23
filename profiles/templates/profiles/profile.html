@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+{% endblock %}
+
+{% block extra_title %} | Profile{% endblock %}
+{% block page_header %}
+    {% include '../profiles/includes/profiles_breadcrumb.html' %}
+{% endblock %}
+{% block content %}
+<!-- page contents container - two rows -->
+<section class="container py-5">
+    <!-- row with one colum - heading-->
+    <div class="row pt-2">
+        <div class="col pt-3 pt-md-5">
+            <h1 class="page-title">My Profile</h1>
+        </div>
+    </div>
+    <!-- second row with 2 columns - Profile form + Order history -->
+    <div class="row mt-4">
+        <!-- 1st column: profile - form to add delivery info, see saved info, update saved info -->
+        <div class="col-12 col-lg-6 mb-4">
+            <h2 class="text-uppercase">Your information</h2>
+            <p>Add or update your saved details using the form below. Any details you previously saved are
+                shown below.</p>
+            <p>Saved details will be used on your next transaction, your information makes it easier to recognize you.</p>
+            <form class="mt-3 brand-form" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+                <fieldset>
+                    <legend class="fieldset-label px-2 w-auto mb-0">User Information</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <!-- submit button -->
+                <button class="btn btn-brand btn-lg float-right">Update Information</button>
+            </form>
+        </div>
+        <!-- 2nd col: Account Details -->
+        <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+            <h2 class="text-uppercase">Account Details</h2>
+            <p>This is the username and email address associated with your account.</p>
+            <div class="wrapper mb-5">
+                <p class="mb-0"><span class="fw-600 font-90">Username:</span> {{ user.username }}</p>
+                <p class="mb-0"><span class="fw-600 font-90">Email address:</span> {{ user.email }}</p>
+            </div>
+        </div>
+        <!-- end of Account Details column -->
+    </div>
+</section>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script to add css to country select box on change -->
+    <script src="{% static 'profiles/js/countryfield.js' %}"></script>
+{% endblock %}

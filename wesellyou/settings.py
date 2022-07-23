@@ -52,9 +52,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # project apps
     'home',
+    'profiles',
     # others
     'crispy_forms',
     'storages',
+    'django_email_verification',    # email_verification
 ]
 
 MIDDLEWARE = [
@@ -110,7 +112,7 @@ SITE_ID = 1
 # allauth settings - authenticate + verify with email, min username, login urls
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # 'none'|'mandatory'|'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'optional' # 'none'|'mandatory'|'optional'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
@@ -216,15 +218,24 @@ else:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Emails
-if 1==0: # 'PRODUCTION' in os.environ:
+# EMAIL_FROM_ADDRESS = 'noreply@jetemiapps.com'
+# # EMAIL_MAIL_SUBJECT = 'Confirm your email'
+# # EMAIL_MAIL_HTML = 'mail_body.html'
+# # EMAIL_MAIL_PLAIN = 'mail_body.txt'
+# EMAIL_TOKEN_LIFE = 60 * 60
+# # EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+# EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+
+if True: #'PRODUCTION' in os.environ:
     # log emails to the console in development, dummy email address
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'wesellyou@example.com'
+    DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
+    # DEFAULT_FROM_EMAIL = 'wesellyou@example.com'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASS')
-    DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER') 
