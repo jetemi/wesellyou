@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} | Server Error{% endblock %}
+{% block extra_title %} | Permission Denied{% endblock %}
 {% block content %}
 
 <!-- page contents container -->
@@ -9,9 +9,10 @@
     <!-- row with heading + contents-->
     <div class="row py-5 justify-content-center">
         <div class="col-12 col-md-6 pt-5">
-            <h1 class="mb-4 page-title">500 Server Error!</h1>
-            <p>We're sorry, something has gone wrong! We're working on it but in the meantime please make your way back
-                using our links below.</p>
+            <h1 class="mb-4 page-title">403 Error!</h1>
+            <p>You don't have access to view this page.</p>
+            <p>If you think you should have access, make sure you have <a href="{% url 'account_login' %}"
+                    class="text-link">signed in to your account</a>, and that you are using the correct link.</p>
             <p>You can <a href="{% url 'home' %}" class="text-link">go back to our home page</a>.</p>
         </div>
     </div>
