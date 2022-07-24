@@ -1,4 +1,4 @@
-# '''Forms fr profiles app - UserProfileForm'''
+'''Forms fr profiles app - UserProfileForm'''
 from django import forms
 from .models import UserProfile
 
@@ -23,8 +23,7 @@ class UserProfileForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         placeholders = {
-            'default_postcode': 'Postal Code or Eircode',
-            'default_county': 'County, State or Locality',
+            'default_postcode': 'Postal Code',
         }
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
