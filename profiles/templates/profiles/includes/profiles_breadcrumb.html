@@ -3,7 +3,7 @@
     <div class="row pt-5 m-0">
         <div class="col-12 col-md-6 pt-2 pt-md-5 px-0 d-flex order-md-last mb-4 mb-md-0">
             {% if request.path == '/profile/' %}
-            <a href="{% url 'home' %}" class="btn btn-brand-dark ml-md-auto">View My Markets</a>
+            <a href="{% url 'home' %}" class="btn btn-brand-dark ml-md-auto">View My Home Page</a>
             {% else %}
             <a href="{% url 'profile' %}" class="btn btn-brand-dark ml-md-auto">View My Profile</a>
             {% endif %}
@@ -13,7 +13,7 @@
                 <ul class="breadcrumb p-0 m-0">
                     <li class="breadcrumb-item">Account</li>
                     <li class="breadcrumb-item" aria-current="page"><span class="current">My
-                        {% if request.path == '/profile/' %}Markets{% else %}Profile{% endif %}</span></li>
+                        {% if request.path == '/profile/' %}Profile{% else %}Other page{% endif %}</span></li>
                 </ul>
             </nav>
         </div>
