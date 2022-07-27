@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # project apps
     'home',
     'profiles',
+    'products',
     # others
     'crispy_forms',
     'storages',

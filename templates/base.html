@@ -102,10 +102,10 @@
                     </li>
                     <li
                         class="nav-item {% if not 'profile' in request.path and 'markets' in request.path %}nav-item-active{% endif %}">
-                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
+                        <a class="nav-link nav-link-main" href="{% url 'products' %}">
                             <div class="text-center">
                                 <div><i class="bi bi-people-fill nav-icon" aria-hidden="true"></i></div>
-                                <p class="my-0 nav-text">Who</p>
+                                <p class="my-0 nav-text">Products</p>
                             </div>
                         </a>
                     </li>
@@ -131,7 +131,7 @@
                             {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
                             <!-- admin user extra option for product + markets management -->
-                            <a href="{% url 'home' %}" class="dropdown-item nav-text">Product Management</a>
+                            <a href="{% url 'add_product' %}" class="dropdown-item nav-text">Product Management</a>
                             <!-- <a href="{% url 'home' %}" class="dropdown-item nav-text">Markets Management</a> -->
                             {% endif %}
                             <a href="{% url 'profile' %}" class="dropdown-item nav-text">My Profile</a>

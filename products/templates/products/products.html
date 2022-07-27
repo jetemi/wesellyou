@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_meta %}
+<!-- specific meta description and keywords for shop -->
+<meta name="description"
+    content="Wesellforyou: an independent retail shop, that lead you to great products on the web.">
+<meta name="keywords" 
+    content="retail, sales, buy, sell, wesellforyou, wesellyou">
+{% endblock %}
+
+{% block extra_title %} | Shop our loavable products | {% if current_category %} {{ current_category.friendly_name }}
+{% else %}All products{% endif %}{% endblock %}
+{% block page_header %}
+    {% include '../products/includes/products_header.html' %}
+{% endblock %}
+{% block content %}
+<!-- page contents container -->
+<section class="py-5 container-fluid">
+    <!-- 1st row - page heading -->
+    <div class="row py-md-2">
+        <div class="col-10 offset-1 pt-3 pb-4">
+            <h1 class="page-title">Shop our lovable products</h1>
+        </div>
+    </div>
+    <!-- 2nd row - products -->
+    <div class="row">
+        <!-- outer container for products + will have row showing sorting options -->
+        <div class="col-10 offset-1">
+            <!-- Products sorting row -->
+            <div class="row pb-3 align-items-center">
+                <!-- select box with product sorting options - works using script linked below, event listener on id -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <select id="sorting-selector" class="custom-select custom-select-sm rounded-0"
+                        aria-label="Sorting options">
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                        <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+                        <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                        <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Product name (A-Z)</option>
+                        <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Product name (Z-A)</option>
+                    </select>
+                </div>
+                <!-- search/filter results column -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <p class="text-muted font-90 mt-3">
+                        {{ products|length }} products
+                        {% if search_term %}
+                        found for <strong>"{{ search_term }}"</strong>
+                        {% else %}
+                        {% if not current_category %} in all categories
+                            {% else %}
+                            in category <strong>"{{ current_category.get_friendly_name }}"</strong>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- end of search results column -->
+            </div>
+            <!-- end of sorting/search results row -->
+            <!-- products row -->
+            <div class="row mt-3">
+                {% for product in products %}
+                <!-- each product displayed in a card within columns -->
+                <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 card-group">
+                    <div class="card h-100 border-0">
+                        <!-- div holding image and badge if new - for badge to be positioned against -->
+                        <div class="position-relative">
+                            {% if product.is_new %}
+                            <!-- if product is new, show the 'New!' badge, and screen reader text -->
+                            <span class="badge badge-brand">New!
+                                <span class="sr-only">New product</span>
+                            </span>
+                            {% endif %}
+                            <!-- product image will link to product detail page -->
+                            <a href="{% url 'product_details' product.id %}">
+                                <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
+                                <img class="img-fluid"
+                                    src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                                    alt="{% if product.image %}Photo of {% else %}No image yet for {% endif %}{{ product.name }}{% if not product.image %}, image coming soon.{% endif %}">
+                            </a>
+                        </div>
+                        <!-- card body - product name and category -->
+                        <div class="card-body pt-3 pb-0 px-1 px-md-2">
+                            <p class="card-title mb-0 text-uppercase">{{ product.name }}</p>
+                            <p class="small my-1">
+                                <!-- category name is also a link to category filter -->
+                                <a href="{% url 'products' %}?category={{product.category.name}}" class="text-muted">
+                                    <i class="bi bi-tag icon"
+                                        aria-hidden="true"></i>{{ product.category.friendly_name }}
+                                </a>
+                            </p>
+                        </div>
+                        <!-- card footer - price, and admin links -->
+                        <div class="card-footer border-0 bg-white py-1 px-1 px-md-2 mb-4">
+                            <p class="fw-600">€{{ product.price }}</p>
+                            {% if request.user.is_superuser %}
+                            <!-- admin actions - activate/deactivate, edit, delete, if user is admin user -->
+                            <div class="admin-link-container">
+                                <div class="row mx-0">
+                                    <h5 class="fw-600 font-90">Admin actions:</h5>
+                                </div>
+                                <div class="row mx-0">
+                                    <div class="col-12 px-0">
+                                        <form class="d-inline"
+                                            action="{% url 'toggle_product_active_status' product.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" value="{{ product.id }}" name="product_id"
+                                                class="btn btn-sm btn-brand-dark mb-2">
+                                                {% if product.is_active %}Make Inactive{% else %}Make Active{% endif %}
+                                            </button>
+                                            <!-- hidden input with url path, so view can redirect back to same page -->
+                                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row mx-0">
+                                    <div class="col-6 px-0">
+                                        <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit
+                                            Details</a>
+                                    </div>
+                                    <!-- brings up delete product modal, included in the includes below -->
+                                    <div class="col-6 px-0">
+                                        <a class="small admin-link" href="#deleteModal{{ product.id }}"
+                                            data-toggle="modal">Delete Product</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% include '../products/includes/delete_product_modal.html' %}
+                    </div>
+                </div>
+                <!-- horizontal rule after each row, depending on how many columns in a row -->
+                {% include 'includes/horizontal_rule_after_row.html' %}
+                {% endfor %}
+                <!-- end of products for loop -->
+            </div>
+            <!-- end of products row inside products container-->
+        </div>
+        <!-- end of outer container for products -->
+    </div>
+    <!-- end of products row -->
+    <!-- back to top link -->
+    <div class="btt-button shadow-sm rounded-0">
+        <a class="btt-link d-flex h-100 justify-content-center align-items-center" aria-label="Back to top">
+            <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        </a>	
+    </div>
+</section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script to sort products using the select box options, and for back to top link -->
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

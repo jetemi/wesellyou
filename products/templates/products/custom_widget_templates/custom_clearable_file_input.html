@@ -1,0 +1,25 @@
+{% if widget.is_initial %}
+    <p class="current-image-label">{{ widget.initial_text }}:</p>
+    <a href="{{ widget.value.url }}">
+        <img width="96" height="96" class="shadow-sm" src="{{ widget.value.url }}" alt="photo of {{ widget.value }}">
+    </a>
+    {% if not widget.required %}
+        <div class="custom-control custom-checkbox mt-2">
+            <input class="custom-control-input" type="checkbox" name="{{ widget.checkbox_name }}"
+                id="{{ widget.checkbox_id }}" {% if widget.attrs.disabled %} disabled{% endif %}>
+            <label class="custom-control-label text-danger"
+                for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+        </div>
+    {% endif %}<br>
+    {{ widget.input_text }}
+{% endif %}
+<!-- file input -->
+<span class="btn btn-brand btn-file">
+    Choose Image <input type="{{ widget.type }}" name="{{ widget.name }}"
+        {% include "django/forms/widgets/attrs.html" %}>
+</span>
+<!-- helptext -->
+<small id="hint_id_image" class="form-text text-muted">If no file chosen, the 'image coming soon' file will be
+    used.</small>
+<!-- filename once file chosen will be shown here, javascript listens for change on input-->
+<p class="text-danger small mt-2" id="filename"></p>

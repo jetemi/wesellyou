@@ -1,0 +1,58 @@
+<!-- Delete Product modal, with button to confirm deletion and post to view, or Cancel to cancel -->
+<div class="modal fade" id="deleteModal{{ product.id }}" tabindex="-1"
+    aria-labelledby="deleteProductModalProduct{{ product.id }}" aria-hidden="true" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Delete Product modal header, with Close button -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductModalProduct{{ product.id }}">Delete Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Delete Product modal body, with product details that will be deleted -->
+            <div class="modal-body">
+                <p><strong>Are you sure you want to permanently delete this product?</strong></p>
+                <!-- product details -->
+                <div class="col-10 offset-1 my-4 py-2">
+                    <!-- row with two columns - image + product details -->
+                    <div class="row">
+                        <div class="col-6">
+                            {% if product.image %}
+                            <img class="w-100" src="{{ product.image.url }}"
+                                alt="Photo of {{ product.name }}">
+                            {% else %}
+                            <img class="w-100" src="{{ MEDIA_URL }}no-image.png"
+                                alt="No image yet for {{ product.name }}, image coming soon.">
+                            {% endif %}
+                        </div>
+                        <div class="col-6 mt-4">
+                            <p class="card-title mb-0 text-uppercase">{{ product.name }}</p>
+                            <p class="small text-muted"><i class="bi bi-tag icon" aria-hidden="true"></i>
+                                {{ product.category.friendly_name }}
+                            </p>
+                            <p class="fw-600 small">Price: €{{product.price}}</p>
+                            <p class="small">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>This action cannot be undone.</strong></p>
+                <p>Instead of deleting the product you can remove the active flag, to prevent it appearing in the shop.
+                </p>
+                <p>If you are sure you want to delete the product, then press Delete Product below. Otherwise, Cancel to
+                    go
+                    back.</p>
+            </div>
+            <!-- Delete Product modal footer, two buttons - one to cancel, one to submit form to delete item -->
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-brand-outline mb-2" data-dismiss="modal">Cancel</button>
+                <form class="d-inline" action="{% url 'delete_product' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" value="{{ product.id }}" name="product_id" class="btn btn-brand mb-2">Delete
+                        Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of Delete Product modal -->

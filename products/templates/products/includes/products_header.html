@@ -1,0 +1,54 @@
+<!-- outer wrapper with top padding so sits below main header -->
+<div class="pt-sm-3">
+    <!-- products menu - categories and search box-->
+    <header class="pt-5 col-md-10 col-lg-8 col-xl-6 px-0 mx-auto">
+        <!-- product categories collapse to toggle button on small screen, expand at bigger screen size -->
+        <nav class="navbar navbar-expand-md flex-md-row-reverse justify-content-md-between w-100 pt-5"
+            aria-label="Shop page categories and search">
+            <!-- toggle button for product categories, for small screen size  -->
+            <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#shop-nav"
+                aria-controls="shop-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- icon added instead of bootstrap toggler icon -->
+                <span class="menu-icon">
+                    <i class="bi bi-list" aria-hidden="true"></i>
+                </span>
+            </button>
+            <!-- search bar -->
+            <form method="GET" action="{% url 'products' %}" class="col-9 p-0 col-sm-6 col-md-4">
+                <div class="input-group w-100">
+                    <input class="form-control rounded-0" type="text" name="q" placeholder="Search our shop">
+                    <div class="input-group-append">
+                        <button class="form-control btn rounded-0" type="submit" aria-label="Search our shop">
+                            <span>
+                                <i class="bi bi-search" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- category filtering options, which collapse to menu button on mobile -->
+            <div class="collapse navbar-collapse" id="shop-nav">
+                <!-- 'current' class is added to the <a> if it is the currently selected category, or added to All if no category -->
+                <ul class="navbar-nav">
+                    <li class="list-inline-item nav-item">
+                        <a href="{% url 'products' %}"
+                            class="nav-link nav-link-sub {% if not current_category %}current{% endif %}">All</a>
+                    </li>
+                    <!-- <li class="list-inline-item nav-item">
+                        <a href="{% url 'products' %}?category=living_room"
+                            class="nav-link nav-link-sub {% if current_category.name == 'living_room' %}current{% endif %}">Living
+                            Room</a>
+                    </li>
+                    <li class="list-inline-item nav-item">
+                        <a href="{% url 'products' %}?category=bedroom"
+                            class="nav-link nav-link-sub {% if current_category.name == 'bedroom' %}current{% endif %}">Bedroom</a>
+                    </li>
+                    <li class="list-inline-item nav-item">
+                        <a href="{% url 'products' %}?category=minis"
+                            class="nav-link nav-link-sub {% if current_category.name == 'minis' %}current{% endif %}">Minis</a>
+                    </li> -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
