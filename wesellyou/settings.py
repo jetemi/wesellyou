@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'home',
     'profiles',
     'products',
+    'cart',
     # others
     'crispy_forms',
     'storages',
@@ -225,10 +226,16 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# variables to calculate delivery costs
+FREE_DELIVERY_THRESHOLD = 60
+STANDARD_DELIVERY_PERCENTAGE = 10
 
 # Emails
 # EMAIL_FROM_ADDRESS = 'noreply@jetemiapps.com'

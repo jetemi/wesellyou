@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- this contains the calc_subtotal function -->
+{% load cart_tools %}
+
+{% block extra_title %} | Cart{% endblock %}
+{% block content %}
+<!-- page contents container -->
+<section class="py-5 container">
+    <!-- 1st row - page heading -->
+    <div class="row pt-3 pt-md-5 pb-2 pb-md-4">
+        <div class="col pt-5">
+            <h1 class="page-title">Your Shopping Bag</h1>
+        </div>
+    </div>
+    <!-- 2nd row - cart items + totals, if there are any, otherwise a msg stating nothing in cart -->
+    <div class="row">
+        {% if cart_items %}
+        <!-- totals - show at bottom on larger screen -->
+        <div class="col-12 text-right pb-2 pb-md-5 order-md-last">
+            <p class="text-muted d-md-none">Here are your totals, and the individual item breakdown is below.</p>
+            <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
+            <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
+            <h5 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h5>
+            {% if free_delivery_spend_needed > 0 %}
+            <p class="font-italic">You can get free delivery if you spend
+                <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
+            {% endif %}
+            <a href="{% url 'products' %}" class="btn btn-brand-outline mt-2 mr-2">Back to Shop</a>
+            <a href="{% url 'home' %}" class="btn btn-brand mt-2">Secure Checkout</a>
+            <hr class="d-md-none">
+        </div>
+        <!-- end of totals column -->
+        <!-- cart contents -->
+        <div class="col-12">
+            {% for item in cart_items %}
+            <!-- row for each item to show img, product name, link to remove, price, qty form, subtotal. These subdivided into two cols -->
+            <div class="row">
+                <!-- 1st col - product image -->
+                <div class="col-12 col-sm-6 col-md-2 mb-2">
+                    <img class="img-fluid"
+                        src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                        alt="{% if item.product.image %}Photo of {% else %}No image yet for {% endif %}{{ item.product.name }}{% if not item.product.image %}, image coming soon.{% endif %}">
+                </div>
+                <!-- end of first col -->
+                <!-- second col - name, link to remove, price, qty form, subtotal -->
+                <div class="col-12 col-sm-6 col-md-10 mb-2">
+                    <!-- using a row so can split into 4 cols at larger screen sizes -->
+                    <div class="row">
+                        <!-- 1st col - product name plus link to remove from cart -->
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <p class="my-0">{{ item.product.name }}</p>
+                            <p class="pt-1">
+                                <!-- this link triggers script to post the form to remove the item -->
+                                <a class="remove-item" id="remove_{{ item.item_id }}" data-csrf="{{ csrf_token }}">
+                                    <small class="fw-600">Remove item</small>
+                                </a>
+                            </p>
+                        </div>
+                        <!-- 2nd col - price -->
+                        <div class="col-12 col-md-2 col-lg-3">
+                            <p class="font-90"><span class="fw-600">Price each: </span> €{{ item.product.price }}</p>
+                        </div>
+                        <!-- 3rd col - quantity form -->
+                        <div class="col-8 col-sm-12 col-md-4 col-lg-3">
+                            <form action="{% url 'adjust_cart' item.item_id %}" method="POST" class="update-form">
+                                {% csrf_token %}
+                                <!-- form group for quantity label, buttons and input -->
+                                <div class="form-group">
+                                    <label for="id_qty_{{ item.item_id }}" class="sr-only">Adjust quantity:</label>
+                                    <div class="input-group">
+                                        <!-- button before the input - for decreasing quantity -->
+                                        <div class="input-group-prepend">
+                                            <button class="decrement-qty rounded-0 btn btn-qty"
+                                                aria-label="Decrease quantity" data-item_id="{{ item.item_id }}"
+                                                id="decrement-qty_{{ item.item_id }}">
+                                                <span><i class="bi bi-dash" aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                        <!-- quantity input box -->
+                                        <input type="number" name="quantity" value="{{ item.quantity }}"
+                                            class="form-control qty_input" min="1" max="10"
+                                            data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                        <!-- button after the input - for increasing quantity -->
+                                        <div class="input-group-append">
+                                            <button class="increment-qty rounded-0 btn btn-qty"
+                                                aria-label="Increase quantity" data-item_id="{{ item.item_id }}"
+                                                id="increment-qty_{{ item.item_id }}">
+                                                <span><i class="bi bi-plus" aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of quantity form group -->
+                            </form>
+                            <!-- handles the posting of the update quantity form -->
+                            <a class="update-link"><small class="fw-600">Update quantity</small></a>
+                        </div>
+                        <!-- last col - subtotal -->
+                        <div class="col-12 col-md-2 col-lg-3 mt-4 mt-md-0">
+                            <p class="font-90"><span class="fw-600">Subtotal:
+                                </span>₦{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                        </div>
+                    </div>
+                    <!-- end of row inside second col -->
+                </div>
+                <!-- end of second col -->
+            </div>
+            <!-- end of row for each item -->
+            <hr>
+            {% endfor %}
+        </div>
+        <!-- end of cart contents col -->
+        {% else %}
+        <!-- if nothing in cart then show note with link back to shop -->
+        <div class="col">
+            <p class="fw-600 mb-5">You don't have any items in your shopping bag.</p>
+            <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
+        </div>
+        {% endif %}
+        <!-- end of if cart_items statement -->
+    </div>
+    <!-- back to top link -->
+    <div class="btt-button shadow-sm rounded-0 d-md-none">
+        <a class="btt-link d-flex h-100 justify-content-center align-items-center" aria-label="Back to top">
+            <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        </a>	
+    </div>
+</section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script for the quantity +/- buttons, update quantity, remove item, back to top link -->
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

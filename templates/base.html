@@ -144,19 +144,19 @@
                         </div>
                     </li>
                     <!-- links to cart.html page, and displays total amount in cart -->
-                    <!-- <li
+                    <li
                         class="nav-item {% if 'cart' in request.path or 'checkout' in request.path %}nav-item-active{% endif %}">
-                        <a class="nav-link nav-link-main" href="{% url 'home' %}">
-                            <div class="text-center"> -->
+                        <a class="nav-link nav-link-main" href="{% url 'view_cart' %}">
+                            <div class="text-center">
                                 <!-- show filled icon if there are items in the cart, otherwise outlined icon -->
-                                <!-- <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"
-                                        aria-hidden="true"></i></div> -->
+                                <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"
+                                        aria-hidden="true"></i></div>
                                 <!-- grand total currently in cart, otherwise 0.00 -->
-                                <!-- <p class="my-0 nav-text">
+                                <p class="my-0 nav-text">
                                     €{% if grand_total %}{{ grand_total|floatformat:2 }}{% else %}0.00{% endif %}</p>
                             </div>
                         </a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </nav>
