@@ -1,0 +1,79 @@
+###########
+# BUILDER #
+###########
+
+# pull a alpine python
+FROM python:3.12.0a1-bullseye as builder
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# set work directory
+WORKDIR /usr/src/app
+
+# install psycopg2 dependencies
+# RUN apt update && apt install postgresql gcc python3-dev musl-dev vim -y
+
+# install dependencies
+# RUN pip install --upgrade pip
+# COPY ./requirements.txt .
+# RUN pip install -r requirements.txt
+
+# lint
+RUN pip install --upgrade pip
+RUN pip install flake8
+COPY . .
+RUN flake8 --ignore=E501,F401,E126,E123 .
+
+# install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+##############
+# PRODUCTION #
+##############
+
+# pull a alpine python
+FROM python:3.12.0a1-bullseye
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# set work directory
+WORKDIR /usr/src/app
+
+# create the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN adduser app && adduser app app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+# install psycopg2 dependencies
+# RUN apt update && apt install postgresql gcc python3-dev musl-dev vim -y
+
+# install dependencies
+# RUN apt update && apt install libpq
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint.prod.sh
+# COPY ./entrypoint.prod.sh .
+# RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.prod.sh
+# RUN chmod +x $APP_HOME/entrypoint.prod.sh
+
+# copy project
+COPY . $APP_HOME
+
+# run entrypoint.sh
+# ENTRYPOINT [ "$APP_HOME/entrypoint.prod.sh" ]

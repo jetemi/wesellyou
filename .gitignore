@@ -1,4 +1,8 @@
-.env
-steps.md
+.env.dev
+.env.prod
+.env.prod.db
 db.sqlite3
 __pycache__/
+entrypoint.sh
+venv
+.env
